@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Todo App</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header>
+    <h1>Todo App</h1>
+    <input class="all-todos" type="radio" name="todos" value="all" checked> 
+    <label>show all todos</label>
+    <input class="done-todos" type="radio" name="todos" value="done" >
+    <label>show done todos</label>
+    <input class="open-todos" type="radio" name="todos" value="open" >
+    <label>show open todos</label>
+  </header>
+  <main> 
+      <input type="text" name="todos" id="todos-input">
+      <article class="todo-article">
+        <ul class="todo-list">      
+        </ul>
+      </article>
+      
+  </main>
+
+
+  <script src="script.js"></script>
+</body>
+</html>
