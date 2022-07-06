@@ -5,6 +5,9 @@ const liElement = document.createElement("li");
 
 
 
+
+
+
 function listOfAllTodos() {
   const todos = input.value;
   const liText = document.createTextNode(todos);
@@ -15,6 +18,19 @@ function listOfAllTodos() {
   input.value = "";
 };
 
+function checkboxInLiElement() {
+  const checkbox = document.createElement("input");
+  checkbox.setAttribute("type", "checkbox");
+  liElement.appendChild(checkbox)
+  
+  
+  checkbox.addEventListener("click", function (e) {
+    if (e.target.checked) {
+      liElement.classList.add("checked")
+    }
+  
+  })
+};
 
 
 
@@ -24,6 +40,7 @@ function eventListener() {
   input.addEventListener("keyup", function (event) {
     if (event.key === "Enter") {
       listOfAllTodos();
+      checkboxInLiElement();
     }
   });
 };
