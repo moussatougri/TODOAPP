@@ -1,7 +1,9 @@
+//Selectoren
 const todoList = document.querySelector(".todo-list");
 const input = document.querySelector(".todos-input");
 const allDoneTodosInp = document.querySelector(".done-todos");
 const sectionOfFilterTodo = document.querySelector(".filter-todos");
+//Array of all todos
 let arrayOfAllTodos = [];
 
 function createTodo() {
@@ -19,32 +21,41 @@ function createTodo() {
   const checkbox = document.createElement("input");
   checkbox.setAttribute("type", "checkbox");
 
+  checkbox.addEventListener("click", udateChecked);
+
   //set Attribute checked
   newItem.setAttribute("checked", "false");
 
   //push newItem in an array
   arrayOfAllTodos.push(newItem);
 
-  //change state
-  checkbox.addEventListener("change", function (e) {
-    if (e.target.checked === true) {
-      newItem.setAttribute("checked", "true");
-      newItem.classList.remove("open");
-      newItem.classList.add("checked");
-    } else {
-      newItem.removeAttribute("checked");
-      newItem.classList.remove("checked");
-      newItem.setAttribute("checked", "false");
-    }
-    //update array of all Todos
-    arrayOfAllTodos.forEach((element, index) => {
-      arrayOfAllTodos[index] = element;
-    });
-  });
-
   //appendChild
   newItem.appendChild(checkbox);
   todoList.appendChild(newItem);
+}
+
+//update attribute
+function udateChecked(e) {
+  arrayOfAllTodos.forEach(function (todo) {
+    if (e.target.checked === true) {
+      todo.setAttribute("checked", "true");
+      todo.classList.remove("open");
+      todo.classList.add("checked");
+    } else {
+      todo.removeAttribute("checked");
+      todo.classList.remove("checked");
+      todo.setAttribute("checked", "false");
+    }
+  });
+  udateTodosInAnArray();
+}
+
+function udateTodosInAnArray() {
+  //update array of all Todos
+  arrayOfAllTodos.forEach((element, index) => {
+    arrayOfAllTodos[index] = element;
+  });
+  console.log(arrayOfAllTodos);
 }
 
 function filterAllDoneTodos(e) {
@@ -74,8 +85,6 @@ function filterAllDoneTodos(e) {
     }
   });
 }
-
-console.log(arrayOfAllTodos);
 
 //all EventListener in an function
 function eventListener() {
