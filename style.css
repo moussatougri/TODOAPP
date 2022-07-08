@@ -1,4 +1,9 @@
 .checked {
   color: grey;
   text-decoration: line-through;
+  list-style-type: square;
+}
+
+.open {
+  list-style-type: square;
 }
