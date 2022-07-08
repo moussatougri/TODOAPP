@@ -20,8 +20,10 @@ function createTodo() {
   //set Attribute checked
   newItem.setAttribute("checked", "false");
 
+  //push newItem in an array
   arrayOfAllTodos.push(newItem);
-  //
+
+  //change state
   checkbox.addEventListener("change", function (e) {
     if (e.target.checked === true) {
       newItem.setAttribute("checked", "true");
