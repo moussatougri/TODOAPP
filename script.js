@@ -1,7 +1,7 @@
 //Selectoren
 const todoList = document.querySelector(".todo-list");
 const input = document.querySelector(".todos-input");
-const allDoneTodosInp = document.querySelector(".done-todos");
+const doneTodoInput = document.querySelector(".done-todos");
 const sectionOfFilterTodo = document.querySelector(".filter-todos");
 //Array of all todos
 let arrayOfAllTodos = [];
@@ -14,14 +14,20 @@ function createTodo() {
 
   // delete Input field
   input.value = "";
-
+  //add class to newItem
   newItem.classList.add("open");
 
   //checkbox in li element
   const checkbox = document.createElement("input");
   checkbox.setAttribute("type", "checkbox");
 
-  checkbox.addEventListener("click", udateAttributefromLiElement);
+  checkbox.addEventListener("change", udateAttributefromLiElement);
+
+  //delete button
+  const deleteBtn = document.createElement("button");
+  deleteBtn.innerText = "X";
+  deleteBtn.classList.add("trash-btn");
+  deleteBtn.addEventListener("click", deleteTodo);
 
   //set Attribute checked
   newItem.setAttribute("checked", "false");
@@ -31,6 +37,7 @@ function createTodo() {
 
   //appendChild
   newItem.appendChild(checkbox);
+  newItem.appendChild(deleteBtn);
   todoList.appendChild(newItem);
 }
 
@@ -48,6 +55,20 @@ function udateAttributefromLiElement(e) {
     }
   });
   udateTodosInAnArray();
+}
+
+//delete Item
+function deleteTodo(e) {
+  const item = e.target;
+  if (item.classList[0] === "trash-btn") {
+    //delete item from the window
+    const todo = item.parentElement;
+    todo.remove();
+    //delete item from an array
+    let index = 1;
+    arrayOfAllTodos.splice(index, 1);
+    console.log(arrayOfAllTodos);
+  }
 }
 
 function udateTodosInAnArray() {
