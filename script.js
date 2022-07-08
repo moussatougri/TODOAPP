@@ -21,7 +21,7 @@ function createTodo() {
   const checkbox = document.createElement("input");
   checkbox.setAttribute("type", "checkbox");
 
-  checkbox.addEventListener("click", udateChecked);
+  checkbox.addEventListener("click", udateAttributefromLiElement);
 
   //set Attribute checked
   newItem.setAttribute("checked", "false");
@@ -35,7 +35,7 @@ function createTodo() {
 }
 
 //update attribute
-function udateChecked(e) {
+function udateAttributefromLiElement(e) {
   arrayOfAllTodos.forEach(function (todo) {
     if (e.target.checked === true) {
       todo.setAttribute("checked", "true");
