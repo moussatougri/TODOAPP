@@ -17,10 +17,12 @@ function createTodo() {
   //add class to newItem
   newItem.classList.add("open");
 
+  //set Attribute checked
+  newItem.setAttribute("checked", "false");
+
   //checkbox in li element
   const checkbox = document.createElement("input");
   checkbox.setAttribute("type", "checkbox");
-
   checkbox.addEventListener("change", udateAttributefromLiElement);
 
   //delete button
@@ -28,9 +30,6 @@ function createTodo() {
   deleteBtn.innerText = "X";
   deleteBtn.classList.add("trash-btn");
   deleteBtn.addEventListener("click", deleteTodo);
-
-  //set Attribute checked
-  newItem.setAttribute("checked", "false");
 
   //push newItem in an array
   arrayOfAllTodos.push(newItem);
@@ -67,7 +66,6 @@ function deleteTodo(e) {
     //delete item from an array
     let index = 1;
     arrayOfAllTodos.splice(index, 1);
-    console.log(arrayOfAllTodos);
   }
 }
 
@@ -76,7 +74,6 @@ function udateTodosInAnArray() {
   arrayOfAllTodos.forEach((element, index) => {
     arrayOfAllTodos[index] = element;
   });
-  console.log(arrayOfAllTodos);
 }
 
 function filterAllDoneTodos(e) {
