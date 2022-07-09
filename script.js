@@ -18,7 +18,7 @@ function createTodo() {
   newItem.classList.add("open");
 
   //set Attribute checked
-  newItem.setAttribute("checked", "false");
+  newItem.setAttribute("data-checked", "false");
 
   //checkbox in li element
   const checkbox = document.createElement("input");
@@ -44,13 +44,13 @@ function createTodo() {
 function udateAttributefromLiElement(e) {
   arrayOfAllTodos.forEach(function (todo) {
     if (e.target.checked === true) {
-      todo.setAttribute("checked", "true");
+      todo.setAttribute("data-checked", "true");
       todo.classList.remove("open");
       todo.classList.add("checked");
     } else {
-      todo.removeAttribute("checked");
+      todo.removeAttribute("data-checked");
       todo.classList.remove("checked");
-      todo.setAttribute("checked", "false");
+      todo.setAttribute("data-checked", "false");
     }
   });
   udateTodosInAnArray();
