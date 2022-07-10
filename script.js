@@ -17,13 +17,27 @@ function createTodo() {
   //add class to newItem
   newItem.classList.add("open");
 
+  //push newItem in an array
+  arrayOfAllTodos.push(newItem.innerText);
+
   //set Attribute checked
   newItem.setAttribute("data-checked", "false");
 
   //checkbox in li element
   const checkbox = document.createElement("input");
   checkbox.setAttribute("type", "checkbox");
-  checkbox.addEventListener("change", udateAttributefromLiElement);
+  checkbox.addEventListener("change", function (e) {
+    if (e.target.checked === true) {
+      newItem.setAttribute("data-checked", "true");
+      newItem.classList.remove("open");
+      newItem.classList.add("checked");
+    } else {
+      newItem.removeAttribute("data-checked");
+      newItem.classList.remove("checked");
+      newItem.setAttribute("data-checked", "false");
+    }
+    udateTodosInAnArray();
+  });
 
   //delete button
   const deleteBtn = document.createElement("button");
@@ -31,29 +45,14 @@ function createTodo() {
   deleteBtn.classList.add("trash-btn");
   deleteBtn.addEventListener("click", deleteTodo);
 
-  //push newItem in an array
-  arrayOfAllTodos.push(newItem);
-
   //appendChild
-  newItem.appendChild(checkbox);
-  newItem.appendChild(deleteBtn);
-  todoList.appendChild(newItem);
-}
-
-//update attribute
-function udateAttributefromLiElement(e) {
-  arrayOfAllTodos.forEach(function (todo) {
-    if (e.target.checked === true) {
-      todo.setAttribute("data-checked", "true");
-      todo.classList.remove("open");
-      todo.classList.add("checked");
-    } else {
-      todo.removeAttribute("data-checked");
-      todo.classList.remove("checked");
-      todo.setAttribute("data-checked", "false");
-    }
-  });
-  udateTodosInAnArray();
+  if (newItem.innerHTML === "") {
+    alert("schreib eine todo");
+  } else {
+    newItem.appendChild(checkbox);
+    newItem.appendChild(deleteBtn);
+    todoList.appendChild(newItem);
+  }
 }
 
 //delete Item
