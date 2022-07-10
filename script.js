@@ -17,8 +17,8 @@ function createTodo() {
   //add class to newItem
   newItem.classList.add("open");
 
-  //push newItem in an array
-  arrayOfAllTodos.push(newItem.innerText);
+  //add todo to localStorage
+  saveLocalTodos(newItem.innerText);
 
   //set Attribute checked
   newItem.setAttribute("data-checked", "false");
@@ -53,6 +53,80 @@ function createTodo() {
     newItem.appendChild(deleteBtn);
     todoList.appendChild(newItem);
   }
+}
+
+//delete Item
+function deleteTodo(e) {
+  const item = e.target;
+  if (item.classList[0] === "trash-btn") {
+    //delete item from the window
+    const todo = item.parentElement;
+    todo.remove();
+    //delete item from an array
+    let index = 1;
+    arrayOfAllTodos.splice(index, 1);
+  }
+}
+
+function saveLocalTodos(todo) {
+  if (localStorage.getItem("todos") === null) {
+    arrayOfAllTodos;
+  } else {
+    arrayOfAllTodos = JSON.parse(localStorage.getItem("todos"));
+  }
+  arrayOfAllTodos.push(todo);
+  localStorage.setItem("todos", JSON.stringify(arrayOfAllTodos));
+}
+
+function getTodos() {
+  if (localStorage.getItem("todos") === null) {
+    arrayOfAllTodos;
+  } else {
+    arrayOfAllTodos = JSON.parse(localStorage.getItem("todos"));
+  }
+  arrayOfAllTodos.forEach(function (todo) {
+    //create li element
+    let newItem = document.createElement("li");
+    //put text on the new Item
+    newItem.innerText = todo;
+
+    //add class to newItem
+    newItem.classList.add("open");
+
+    //set Attribute checked
+    newItem.setAttribute("data-checked", "false");
+
+    //checkbox in li element
+    const checkbox = document.createElement("input");
+    checkbox.setAttribute("type", "checkbox");
+    checkbox.addEventListener("change", function (e) {
+      if (e.target.checked === true) {
+        newItem.setAttribute("data-checked", "true");
+        newItem.classList.remove("open");
+        newItem.classList.add("checked");
+      } else {
+        newItem.removeAttribute("data-checked");
+        newItem.classList.remove("checked");
+        newItem.setAttribute("data-checked", "false");
+      }
+      udateTodosInAnArray();
+    });
+
+    //delete button
+    const deleteBtn = document.createElement("button");
+    deleteBtn.innerText = "X";
+    deleteBtn.classList.add("trash-btn");
+    deleteBtn.addEventListener("click", deleteTodo);
+
+    //appendChild
+    if (newItem.innerHTML === "") {
+      alert("schreib eine todo");
+    } else {
+      newItem.appendChild(checkbox);
+      newItem.appendChild(deleteBtn);
+      todoList.appendChild(newItem);
+    }
+  });
 }
 
 //delete Item
@@ -111,7 +185,7 @@ function eventListener() {
       createTodo();
     }
   });
-
+  document.addEventListener("DOMContentLoaded", getTodos);
   sectionOfFilterTodo.addEventListener("click", filterAllDoneTodos);
 }
 
