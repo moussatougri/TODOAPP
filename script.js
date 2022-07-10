@@ -41,7 +41,6 @@ function createTodo() {
 
   //delete button
   const deleteBtn = document.createElement("button");
-  deleteBtn.innerText = "X";
   deleteBtn.classList.add("trash-btn");
   deleteBtn.addEventListener("click", deleteTodo);
 
@@ -114,7 +113,6 @@ function getTodos() {
 
     //delete button
     const deleteBtn = document.createElement("button");
-    deleteBtn.innerText = "X";
     deleteBtn.classList.add("trash-btn");
     deleteBtn.addEventListener("click", deleteTodo);
 
@@ -129,12 +127,25 @@ function getTodos() {
   });
 }
 
+//remove todo from localstorage
+function removeLocalTodos(todo) {
+  if (localStorage.getItem("todos") === null) {
+    arrayOfAllTodos;
+  } else {
+    arrayOfAllTodos = JSON.parse(localStorage.getItem("todos"));
+  }
+  const todoIndex = todo.innerText;
+  arrayOfAllTodos.splice(arrayOfAllTodos.indexOf(todoIndex), 1);
+  localStorage.setItem("todos", JSON.stringify(arrayOfAllTodos));
+}
+
 //delete Item
 function deleteTodo(e) {
   const item = e.target;
   if (item.classList[0] === "trash-btn") {
     //delete item from the window
     const todo = item.parentElement;
+    removeLocalTodos(todo);
     todo.remove();
     //delete item from an array
     let index = 1;
