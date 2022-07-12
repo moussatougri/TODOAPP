@@ -13,3 +13,7 @@
   border: black solid 2px;
   padding: 4px;
 }
+
+.trash-btn::before {
+  content: "🗑️";
+}
