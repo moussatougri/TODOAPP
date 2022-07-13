@@ -72,7 +72,7 @@ function getTodos() {
   checkLocalTodos();
   state.todos.forEach(function (todo) {
     let newLi = document.createElement("li");
-    newLi.innerText = todo.description;
+    const todoDesc = document.createTextNode(todo.description);
     newLi.classList.add("open");
 
     const checkbock = document.createElement("input");
@@ -83,6 +83,7 @@ function getTodos() {
     deleteBtn.classList.add("trash-btn");
     deleteBtn.addEventListener("click", deleteTodo);
 
+    newLi.appendChild(todoDesc);
     newLi.appendChild(checkbock);
     newLi.appendChild(deleteBtn);
     list.appendChild(newLi);
@@ -90,13 +91,6 @@ function getTodos() {
 }
 
 //remove todo from localstorage
-function removeLocalTodos(todo) {
-  checkLocalTodos();
-  console.log(todo.innerText);
-  const todoIndex = todo.innerText;
-  state.todos.splice(state.todos.indexOf(todoIndex), 1);
-  localStorage.setItem("todos", JSON.stringify(state.todos));
-}
 
 //delete Item
 function deleteTodo(e) {
@@ -104,11 +98,13 @@ function deleteTodo(e) {
   if (item.classList[0] === "trash-btn") {
     //delete item from the window
     const todo = item.parentElement;
-    removeLocalTodos(todo);
     todo.remove();
     //delete item from an array
-    const index = 1;
+    const index = state.todos.findIndex(
+      (x) => x.description === todo.innerText
+    );
     state.todos.splice(index, 1);
+    localStorage.setItem("todos", JSON.stringify(state.todos));
   }
 }
 
